@@ -10,19 +10,19 @@ PLUGIN_NAME=$(cat package.json \
 COMPANY=$(cat package.json | grep companyname | sed 's/.*"companyname": "\(.*\)".*/\1/')
 echo "Installing LSF plugin" $PLUGIN_NAME from $COMPANY "..."
 
-INSTALLATION_PATH=""
-if [[ -f "package.json" ]]
+INSTALLATION_PATH="../"
+if [[ -f "../package.json" ]]
 then
-  INSTALLATION_PATH="";
-elif [[ -f "../package.json" ]]
-then
-  INSTALLATION_PATH="..";
+  INSTALLATION_PATH="../";
 elif [[ -f "../../package.json" ]]
 then
   INSTALLATION_PATH="../.."
 elif [[ -f "../../../package.json" ]]
 then
   INSTALLATION_PATH="../../.."
+elif [[ -f "../../../../package.json" ]]
+then
+  INSTALLATION_PATH="../../../.."
 else
   echo "Cannot install script. Invalid API structure"
   exit 1
