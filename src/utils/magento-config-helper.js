@@ -37,6 +37,9 @@ class MagentoConfigHelper {
         return `website_${websiteId}_store_${storeId}`;
     }
 
+    getIdsFromKey (key) {
+        return
+    }
 
     constructor (configuration) {
         let conf = {};
