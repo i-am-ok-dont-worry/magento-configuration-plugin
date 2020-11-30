@@ -1,6 +1,7 @@
 {
   "name": "vsf-api-plugin-template",
   "pluginname": "VSF api plugin",
+  "companyname": "grupakmk",
   "version": "1.0.0",
   "description": "Template for VSF api plugin",
   "main": "src/index.js",

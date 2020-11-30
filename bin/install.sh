@@ -7,9 +7,27 @@ PLUGIN_NAME=$(cat package.json \
   | awk -F: '{ print $2 }' \
   | sed 's/[",]//g')
 
-COMPANY=$(cat package.json | grep company | sed 's/.*"company": "\(.*\)".*/\1/')
+COMPANY=$(cat package.json | grep companyname | sed 's/.*"companyname": "\(.*\)".*/\1/')
 echo "Installing LSF plugin" $PLUGIN_NAME from $COMPANY "..."
 
-mkdir -p "$cwd/../../vendor/@$COMPANY"
-cp -R src/* ../../vendor/@$COMPANY
-cp README.md ../../vendor/@$COMPANY/README.md
+INSTALLATION_PATH=""
+if [[ -f "package.json" ]]
+then
+  INSTALLATION_PATH="";
+elif [[ -f "../package.json" ]]
+then
+  INSTALLATION_PATH="..";
+elif [[ -f "../../package.json" ]]
+then
+  INSTALLATION_PATH="../.."
+elif [[ -f "../../../package.json" ]]
+then
+  INSTALLATION_PATH="../../.."
+else
+  echo "Cannot install script. Invalid API structure"
+  exit 1
+fi;
+
+mkdir -p "$cwd/$INSTALLATION_PATH/vendor/@$COMPANY"
+cp -R src/* "./$INSTALLATION_PATH/vendor/@$COMPANY"
+cp README.md "./$INSTALLATION_PATH/vendor/@$COMPANY/README.md"
