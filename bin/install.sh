@@ -28,6 +28,6 @@ else
   exit 1
 fi;
 
-mkdir -p "$cwd/$INSTALLATION_PATH/vendor/@$COMPANY"
-cp -R src/* "./$INSTALLATION_PATH/vendor/@$COMPANY"
-cp README.md "./$INSTALLATION_PATH/vendor/@$COMPANY/README.md"
+mkdir -p "$cwd/$INSTALLATION_PATH/vendor/@$COMPANY/$PLUGIN_NAME"
+cp -R src/* "./$INSTALLATION_PATH/vendor/@$COMPANY/$PLUGIN_NAME"
+cp README.md "./$INSTALLATION_PATH/vendor/@$COMPANY/$PLUGIN_NAME/README.md"
