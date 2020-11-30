@@ -1,3 +1,3 @@
-module.exports = ({ router, apiStatus, apiError, cacheInstance }) => {
+module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiClient }) => {
     console.warn('----> Plugin initialized');
 };
