@@ -1,0 +1,27 @@
+{
+  "name": "vsf-api-plugin-template",
+  "pluginname": "VSF api plugin",
+  "version": "1.0.0",
+  "description": "Template for VSF api plugin",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test",
+    "postinstall": "sh bin/install.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i-am-ok-dont-worry/vsf-api-plugin-template.git"
+  },
+  "keywords": [
+    "VSF",
+    "api"
+  ],
+  "author": {
+    "name": "grupakmk"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/i-am-ok-dont-worry/vsf-api-plugin-template/issues"
+  },
+  "homepage": "https://github.com/i-am-ok-dont-worry/vsf-api-plugin-template#readme"
+}
