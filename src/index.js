@@ -58,6 +58,36 @@ module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiCl
     }
   });
 
+  router.post('/reindex/:websiteId/:storeId', async (req, res) => {
+    try {
+      const {websiteId, storeId} = req.params;
+      if (!websiteId) { throw new Error('Website id is required'); }
+      if (!storeId) { throw new Error('Store id is required'); }
+
+      let helper = new MagentoConfigHelper();
+      const invalidateKey = helper.getCacheKey(websiteId, storeId);
+      let cachedConfig = await cache.getCacheInstance().get(invalidateKey);
+
+      if (cachedConfig) {
+        const client = createMage2RestClient();
+        const result = await client.mage_config.get();
+
+        helper = new MagentoConfigHelper(result);
+        const map = helper.getCacheReadyConfigurationMap();
+        const newConfig = map.get(invalidateKey);
+        cache.getCacheInstance().set(invalidateKey, newConfig, ['config']);
+
+        config = map.get(helper.getCacheKey(websiteId, storeId));
+      } else {
+        apiError(res, `Configuration for selected pair website - ${websiteId}, store - ${storeId} was not found`);
+      }
+
+
+    } catch (e) {
+
+    }
+  });
+
   return {
     domainName: '@grupakmk',
     pluginName: 'magento-config',

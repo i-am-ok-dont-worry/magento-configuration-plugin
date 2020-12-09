@@ -18,6 +18,11 @@ class MagentoConfigHelper {
     return null;
   }
 
+  /**
+   * Returns configuration objects prepared per website
+   * and per store
+   * @returns {Map<string, MagentoConfiguration>}
+   */
   getCacheReadyConfigurationMap () {
     const map = new Map();
     Object.keys(this.configuration).forEach(websiteId => {
