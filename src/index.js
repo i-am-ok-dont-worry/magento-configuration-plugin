@@ -68,7 +68,6 @@ module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiCl
         cache.getCacheInstance().set(key, value, ['config'], { timeout: 604800 /* Cache for a week */ });
       });
 
-      config = map.get(helper.getCacheKey(websiteId, storeId));
       apiStatus(res, 'Invalidation complete');
     } catch (e) {
       apiError(res, `Configuration invalidation failed`);
@@ -99,10 +98,8 @@ module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiCl
       } else {
         apiError(res, `Configuration for selected pair website - ${websiteId}, store - ${storeId} was not found`);
       }
-
-
     } catch (e) {
-
+      apiError(res, `Configuration invalidate error ${e.message}`);
     }
   });
 
