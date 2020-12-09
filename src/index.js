@@ -58,6 +58,23 @@ module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiCl
     }
   });
 
+  router.post('/reindex', async (req, res) => {
+    try {
+      const client = createMage2RestClient();
+      config = await client.mage_config.get();
+      let helper = new MagentoConfigHelper(config);
+      const map = helper.getCacheReadyConfigurationMap();
+      map.forEach((value, key) => {
+        cache.getCacheInstance().set(key, value, ['config'], { timeout: 604800 /* Cache for a week */ });
+      });
+
+      config = map.get(helper.getCacheKey(websiteId, storeId));
+      apiStatus(res, 'Invalidation complete');
+    } catch (e) {
+      apiError(res, `Configuration invalidation failed`);
+    }
+  });
+
   router.post('/reindex/:websiteId/:storeId', async (req, res) => {
     try {
       const {websiteId, storeId} = req.params;
