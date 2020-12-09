@@ -41,7 +41,7 @@ module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiCl
 
         const map = helper.getCacheReadyConfigurationMap();
         map.forEach((value, key) => {
-          cache.getCacheInstance().set(key, value, ['config']);
+          cache.getCacheInstance().set(key, value, ['config'], { timeout: 604800 /* Cache for a week */ });
         });
 
         config = map.get(helper.getCacheKey(websiteId, storeId));
@@ -75,9 +75,10 @@ module.exports = ({ config, db, router, cache, apiStatus, apiError, getRestApiCl
         helper = new MagentoConfigHelper(result);
         const map = helper.getCacheReadyConfigurationMap();
         const newConfig = map.get(invalidateKey);
-        cache.getCacheInstance().set(invalidateKey, newConfig, ['config']);
+        cache.getCacheInstance().set(invalidateKey, newConfig, ['config'], { timeout: 604800 /* Cache for a week */ });
 
         config = map.get(helper.getCacheKey(websiteId, storeId));
+        apiStatus(res, `Configuration for website website - ${websiteId}, store - ${storeId} invalidated`);
       } else {
         apiError(res, `Configuration for selected pair website - ${websiteId}, store - ${storeId} was not found`);
       }
