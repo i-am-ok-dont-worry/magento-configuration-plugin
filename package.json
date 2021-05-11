@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/i-am-ok-dont-worry/vsf-api-plugin-template#readme",
   "dependencies": {
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "eslint": "^7.14.0",
